@@ -12,8 +12,6 @@ def touch(path):
     with open(path, 'a'):
         os.utime(path, None)
 
-# function to print message
-
 
 def printMessage(message):
     print("\n#################################################################")
@@ -21,26 +19,26 @@ def printMessage(message):
     print("#################################################################\n")
 
 
-# main function
-if __name__ == "__main__":
-
-    # fetching the flutter project name
-    projectName = input("Please enter name of flutter project: ")
-    projectOrg = input("Please enter organization name: ")
-
-    # executing commands one by one
-
+# used to create the flutter application
+def createFlutterApp(projectName, projectOrg):
     printMessage("Creating flutter application...")
     # creating fluutter project
     os.system("flutter create -a java -i swift --org com.{} {}".format(
         projectOrg, projectName))
 
+# used to delete the test folder
+
+
+def deleteTestFolder():
     printMessage("Deleting 'Test' folder...")
     # navigating into the created project
     os.chdir(projectName)
     # deleting the test folder
     shutil.rmtree("./test")
 
+
+# used to create all the files and folders in the new flutter project
+def createFilesAndFolders():
     printMessage(
         "Creating all supplementary folders and files in 'lib' folder...")
     # navigating to the lib folder
@@ -74,6 +72,66 @@ if __name__ == "__main__":
     touch("./homePage/homePage.dart")
     touch("./homePage/widgets.dart")
     touch("./homePage/functions.dart")
+    # navigating back to the root of the project
+    os.chdir("../..")
+
+
+# used to perform meta operations such as writing data to files
+def writeDataToFiles(projectName):
+
+    # opening pubspec file
+    with open("./pubspec.yaml", "r+") as f:
+        # getting all the lines in the file
+        allLines = f.readlines()
+        # clearing the contents of the file
+        f.seek(0)
+        f.truncate()
+        # adding the pedantic dev dependancies
+        allLines.insert(34, '  effective_dart: ^1.2.4\n')
+        # writing the new lines to file
+        f.writelines(allLines)
+
+    # filling the contents of the analysis file
+    with open("analysis_options.yaml", "w") as f:
+        # containes the file content to add
+        fileContent = ['include: package:effective_dart/analysis_options.1.2.0.yaml\n',
+                       'linter:\n', '  rules:\n', '    prefer_relative_imports: false\n', '    file_names: false\n',
+                       '    omit_local_variable_types: false\n', '    avoid_setters_without_getters: false\n']
+        # writing the contents to the file
+        f.writelines(fileContent)
+
+    # running pub get
+    os.system("flutter pub get")
+
+    # changing directory to go to lib folder
+    os.chdir("./lib")
+    # filling the contents of the import.dart file
+    with open("imports.dart", "w") as f:
+        # containes the file content to add
+        fileContent = ['// package imports\n', "export 'package:flutter/material.dart';\n\n",
+                       '// model imports\n\n', '// page imports\n\n', '// global imports\n\n', '// service imports']
+        # writing the content to the files
+        f.writelines(fileContent)
+
+
+# main function
+if __name__ == "__main__":
+
+    # fetching the flutter project name and org name
+    projectName = input("Please enter name of flutter project: ")
+    projectOrg = input("Please enter organization name: ")
+
+    # creating flutter project
+    createFlutterApp(projectName=projectName, projectOrg=projectOrg)
+
+    # deleting the 'test' folder
+    deleteTestFolder()
+
+    # creating all the important files and folders
+    createFilesAndFolders()
+
+    # writing data to the required files
+    writeDataToFiles(projectName=projectName)
 
     # completion message
     printMessage("Done! Happy Fluttering ;D")
