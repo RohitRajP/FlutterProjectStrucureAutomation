@@ -109,7 +109,10 @@ def writeDataToFiles(projectName):
     with open("imports.dart", "w") as f:
         # containes the file content to add
         fileContent = ['// package imports\n', "export 'package:flutter/material.dart';\n\n",
-                       '// model imports\n\n', '// page imports\n\n', '// global imports\n\n', '// service imports']
+                       '// model imports\n\n', '// page imports\n\n', '// global imports\n', f"export 'package:{projectName}/global/globalData.dart';\n",
+                       f"export 'package:{projectName}/global/globalFunctions.dart';\n", f"export 'package:{projectName}/global/globalTheme.dart';\n",
+                       f"export 'package:{projectName}/global/globalWidgets.dart';\n", f"export 'package:{projectName}/global/globalScaffoldKeys.dart';\n\n",
+                       '// service imports']
         # writing the content to the files
         f.writelines(fileContent)
 
