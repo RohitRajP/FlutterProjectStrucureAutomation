@@ -124,9 +124,18 @@ def writeDataToFiles(projectName):
 # main function
 if __name__ == "__main__":
 
-    # fetching the flutter project name and org name
+    # fetching the flutter project name, org name and web support command
     projectName = input("Please enter name of flutter project: ")
     projectOrg = input("Please enter organization name: ")
+    isWebEnabled = input("Should web support be enabled? (y/n): ")
+
+    # checking if web support is needed
+    if(isWebEnabled == 'y' or isWebEnabled == 'Y'):
+        # enabling flutter web
+        os.system("flutter config --enable-web")
+    else:
+        # disabling web
+        os.system("flutter config --no-enable-web")
 
     # creating flutter project
     createFlutterApp(projectName=projectName, projectOrg=projectOrg)
