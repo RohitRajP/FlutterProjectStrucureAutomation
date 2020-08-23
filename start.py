@@ -151,4 +151,3 @@ if __name__ == "__main__":
 
     # completion message
     printMessage("Done! Happy Fluttering ;D")
-    input()
