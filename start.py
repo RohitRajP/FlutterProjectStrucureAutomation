@@ -86,8 +86,10 @@ def writeDataToFiles(projectName):
         # clearing the contents of the file
         f.seek(0)
         f.truncate()
+        # adding the provider dependancy
+        allLines.insert(25, '  provider: ^4.3.2+1\n')
         # adding the pedantic dev dependancies
-        allLines.insert(34, '  effective_dart: ^1.2.4\n')
+        allLines.insert(35, '  effective_dart: ^1.2.4\n')
         # writing the new lines to file
         f.writelines(allLines)
 
@@ -102,6 +104,8 @@ def writeDataToFiles(projectName):
 
     # running pub get
     os.system("flutter pub get")
+    # upgrading existing dependancies to latest version
+    os.system("flutter pub upgrade")
 
     # changing directory to go to lib folder
     os.chdir("./lib")
