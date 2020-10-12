@@ -23,7 +23,7 @@
    'r:\\applications\\python38-32\\lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
    'PYSOURCE'),
   ('pyi_rth_multiprocessing',
-   'R:\\Applications\\Python38-32\\Lib\\site-packages\\PyInstaller\\loader\\rthooks\\pyi_rth_multiprocessing.py',
+   'R:\\Applications\\Python38-32\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_multiprocessing.py',
    'PYSOURCE'),
   ('start',
    'R:\\Projects\\Personal_Projects\\FlutterProjCreator\\start.py',

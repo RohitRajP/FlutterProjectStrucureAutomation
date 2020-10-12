@@ -86,10 +86,11 @@ def writeDataToFiles(projectName):
         # clearing the contents of the file
         f.seek(0)
         f.truncate()
-        # adding the provider dependancy
+        # adding normal dependancies
         allLines.insert(25, '  provider: ^4.3.2+1\n')
+        allLines.insert(26, '  flash: ^1.3.1\n')
         # adding the pedantic dev dependancies
-        allLines.insert(35, '  effective_dart: ^1.2.4\n')
+        allLines.insert(36, '  effective_dart: ^1.2.4\n')
         # writing the new lines to file
         f.writelines(allLines)
 
@@ -98,7 +99,7 @@ def writeDataToFiles(projectName):
         # containes the file content to add
         fileContent = ['include: package:effective_dart/analysis_options.1.2.0.yaml\n',
                        'linter:\n', '  rules:\n', '    prefer_relative_imports: false\n', '    file_names: false\n',
-                       '    omit_local_variable_types: false\n', '    avoid_setters_without_getters: false\n']
+                       '    omit_local_variable_types: false\n', '    avoid_setters_without_getters: false\n','    public_member_api_docs: false\n']
         # writing the contents to the file
         f.writelines(fileContent)
 
@@ -112,7 +113,7 @@ def writeDataToFiles(projectName):
     # filling the contents of the import.dart file
     with open("imports.dart", "w") as f:
         # containes the file content to add
-        fileContent = ['// package imports\n', "export 'package:flutter/material.dart';\n", "export 'package:provider/provider.dart';\n\n",
+        fileContent = ['// package imports\n', "export 'package:flutter/material.dart';\n", "export 'package:flash/flash.dart';\n","export 'package:provider/provider.dart';\n\n",
                        '// model imports\n\n', '// page imports\n\n', '// global imports\n', f"export 'package:{projectName}/global/globalData.dart';\n",
                        f"export 'package:{projectName}/global/globalFunctions.dart';\n", f"export 'package:{projectName}/global/globalTheme.dart';\n",
                        f"export 'package:{projectName}/global/globalWidgets.dart';\n", f"export 'package:{projectName}/global/globalScaffoldKeys.dart';\n\n",
